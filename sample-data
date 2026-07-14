@@ -1,0 +1,106 @@
+1. sample-data/sample1.json
+{
+  "traceId": "8435a58fbea9d4d88f3ec7ebba8504fb",
+  "statusCode": 200,
+  "message": ["Success"],
+  "data": {
+    "documentId": "DOC001_DISCHARGE_ONLY",
+    "correlationId": "corr_001",
+    "responseDetails": [{
+      "classifier": "discharge_summary",
+      "data": {
+        "patientName": "John Doe",
+        "admissionDate": "09-10-2025",
+        "hospitalName": "Fortis Hospital",
+        "gender": "Male",
+        "age": "45"
+      }
+    }]
+  }
+}
+2. sample-data/sample2.json
+{
+  "traceId": "d6edfe98d7eff4e3eead5c782b06ea3b",
+  "statusCode": 200,
+  "message": ["Success"],
+  "data": {
+    "documentId": "DOC002_MESSY_LAB",
+    "correlationId": "corr_002",
+    "responseDetails": [{
+      "classifier": "lab_report",
+      "data": {
+        "basic_info": {
+          "patient_name": "Jane Smith",
+          "reports_date": "04-10-2025",
+          "lab_or_hospital_name": "Veritas Diagnostics"
+        },
+        "report_details": [
+          {"test_name": "aemoglobin", "result": "9.5", "unit": "g/dl"},
+          {"test_name": "tal WBC Count", "result": "5.45", "unit": "mil/cu.mm"},
+          {"test_name": "Serum Creatinine", "result": "1.1", "unit": "mg/dL"}
+        ]
+      }
+    }]
+  }
+}
+3. sample-data/sample3.json
+{
+  "traceId": "ad717d432afa08f2b59bd1bdcb861863",
+  "statusCode": 200,
+  "message": ["Success"],
+  "data": {
+    "documentId": "DOC002_MESSY_LAB",
+    "correlationId": "corr_003",
+    "responseDetails": [{"classifier": "lab_report", "data": {"basic_info": {"patient_name": "Jane Smith"}}}]
+  }
+}
+4. sample-data/sample4.json
+{
+  "traceId": "73659e05dc8768bb034da1029ff89dad",
+  "statusCode": 200,
+  "message": ["Success"],
+  "data": {
+    "documentId": "DOC004_TEXT_UNITS",
+    "correlationId": "corr_004",
+    "responseDetails": [{
+      "classifier": "lab_report",
+      "data": {
+        "basic_info": {
+          "patient_name": "Alice Green",
+          "reports_date": "10/Oct/2025",
+          "lab_or_hospital_name": "Metro Labs"
+        },
+        "report_details": [
+          {"test_name": "HAEMOGLOBIN", "result": "13.7 g/dl", "unit": "g/dl"},
+          {"test_name": "TOTAL LEUCOCYTE COUNT (TLC)", "result": "4,290 cells/cu.mm", "unit": "cells/cu.mm"},
+          {"test_name": "Sodium", "result": "132", "unit": "mmol/L"}
+        ]
+      }
+    }]
+  }
+}
+5. sample-data/sample5.json
+{
+  "traceId": "bc7b8b01a14eb62af3ce120c670e5b77",
+  "statusCode": 200,
+  "message": ["Success"],
+  "data": {
+    "documentId": "DOC005_OUTLIERS",
+    "correlationId": "corr_005",
+    "responseDetails": [{
+      "classifier": "lab_report",
+      "data": {
+        "basic_info": {
+          "patient_name": "Bob Brown",
+          "reports_date": "12-10-2025",
+          "lab_or_hospital_name": "Apex Clinic"
+        },
+        "report_details": [
+          {"test_name": "Hb", "result": "1.5", "unit": "g/dl"},
+          {"test_name": "WBC COUNT", "result": "120000", "unit": "cells/cu.mm"},
+          {"test_name": "Potassium (K+)", "result": "6.2", "unit": "mmol/L"}
+        ]
+      }
+    }]
+  }
+}
