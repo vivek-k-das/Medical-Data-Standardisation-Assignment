@@ -1,0 +1,66 @@
+1. docs/assumptions.md
+
+#  Veritas Claims Ingestion Pipeline - Solution Assumptions
+
+This document explains my design decisions, assumptions, and scope boundaries for this medical data standardization project [2, 9].
+
+## 1. Business Assumptions
+- **Volume and Scheduling:** I assume that for this local prototype, clinical JSON files are dropped into a shared folder manually or on a simple daily schedule [1, 10]. 
+- **Operational Auditing:** I assume that claims managers only need to see standard patient details (document ID, name, hospital, date, and processing time) in a simple log table, rather than inspecting raw JSON databases on their screens [11].
+
+## 2. Technical Assumptions
+- **Database Selection (SQLite):** I chose **SQLite** because it is a lightweight database that runs directly out of a local file (`veritas_claims.db`) [8]. It does not require setting up a separate SQL server, making it perfect for a fast, zero-configuration local pipeline [1].
+- **Web Interface (Streamlit):** I selected **Streamlit** for the UI because it lets me build a working dashboard in Python very quickly without needing complex HTML or CSS frontend code [8, 11].
+- **Data Cleanup (Regular Expressions):** I assume that clinic result fields containing messy units (like "13.7 g/dl") can be cleaned by using Python's `re` (Regular Expression) library to find and pull out the first number [12, 13].
+
+## 3. Data & Clinical Assumptions
+- **Standard Lab Tests:** I assume we are only standardizing and validating 5 key tests: **Hemoglobin, WBC Count, Serum Creatinine, Sodium, and Potassium** [12, 14, 15]. Any other tests in the files are ignored.
+- **Unit Scaling (WBC Count):** I assume that if an incoming White Blood Cell (WBC) count is a decimal number less than 50.0 (like "5.45"), it was recorded in millions and must be multiplied by 1,000 to convert it to standard cells/cu.mm [12].
+
+## 4. Scope Exclusions (What I Left Out)
+To keep this project highly readable, simple to maintain, and focused on the core functional requirements, I consciously excluded the following optional features:
+- **Demographic Normalization:** Standardizing different age formats, genders, and ISO dates was excluded (FR-2.5 is Optional) [13, 15].
+- **Medicine Name Mapping:** Mapping brand names to generic medicine equivalents was excluded (FR-2.6 is Optional) [13, 15].
+- **Side-by-Side Raw Inspector:** The dashboard does not include a complex JSON inspector or search bars to keep the UI clean and fast (FR-5.2 is Optional) [8, 11].
+  
+2.  docs/architecture_diagram.txt
+
+========================================================================================
+             VERITAS MEDICAL DATA PIPELINE - LOCAL SYSTEM DATA FLOW
+========================================================================================
+
+   +─────────────────────────+
+   | INPUT FILE FOLDER       |
+   |                         |
+   |  - sample-data/         | <--- Contains messy clinical JSON files [1]
+   +─────────────────────────+
+                |
+                | (User clicks "Run Processing Pipeline" in UI)
+                v
+   +─────────────────────────+
+   | PYTHON INGESTION ENGINE |
+   |                         |
+   |  - Duplicates Check     | <--- Compares document_id with existing SQLite records [14]
+   |  - Name Mapping         | <--- Standardizes misspelled lab names [14]
+   |  - Numeric Parser       | <--- Uses RegEx to extract numbers [12]
+   |  - Range Check          | <--- Validates values against high/low limits [15, 16]
+   +─────────────────────────+
+                |
+                | (Writes processed rows)
+                v
+   +─────────────────────────+
+   | LOCAL SQLITE DATABASE   |
+   |                         |
+   |  - veritas_claims.db    | <--- Stores static tables of processed records [8]
+   +─────────────────────────+
+                |
+                | (Queries database table on refresh)
+                v
+   +─────────────────────────+
+   | STREAMLIT WEB PORTAL    |
+   |                         |
+   |  - Ingestion Stats      | <--- Displays totals for runs, blocks, and outliers [11]
+   |  - Clean Records Table  | <--- Renders a simple, static HTML log table [11]
+   +─────────────────────────+
+
+========================================================================================
