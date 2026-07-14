@@ -1,0 +1,65 @@
+config/test_name_map.json
+  
+{
+  "haemoglobin": "Hemoglobin",
+  "haemoglobin (whole blood/photometric method)": "Hemoglobin",
+  "hemoglobin": "Hemoglobin",
+  "aemoglobin": "Hemoglobin",
+  "hb": "Hemoglobin",
+  "hgb": "Hemoglobin",
+  "total leucocyte count (tlc)": "WBC_Count",
+  "total leucocyte count (tlc) (whole blood/impedence method)": "WBC_Count",
+  "total wbc count": "WBC_Count",
+  "wbc count": "WBC_Count",
+  "tal wbc count": "WBC_Count",
+  "serum creatinine": "Serum_Creatinine",
+  "creatinine, serum": "Serum_Creatinine",
+  "sr creatinine": "Serum_Creatinine",
+  "creatinine": "Serum_Creatinine",
+  "sodium": "Sodium",
+  "sodium (na+)": "Sodium",
+  "na+": "Sodium",
+  "potassium": "Potassium",
+  "potassium (k+)": "Potassium",
+  "k+": "Potassium"
+}
+
+config/reference_ranges.json
+  
+{
+  "Hemoglobin": {
+    "low": 12.0,
+    "high": 16.0,
+    "outlier_low": 2.0,
+    "outlier_high": 25.0,
+    "unit": "g/dL"
+  },
+  "WBC_Count": {
+    "low": 4000.0,
+    "high": 10000.0,
+    "outlier_low": 500.0,
+    "outlier_high": 100000.0,
+    "unit": "cells/cu.mm"
+  },
+  "Serum_Creatinine": {
+    "low": 0.5,
+    "high": 1.4,
+    "outlier_low": 0.1,
+    "outlier_high": 10.0,
+    "unit": "mg/dL"
+  },
+  "Sodium": {
+    "low": 135.0,
+    "high": 145.0,
+    "outlier_low": 100.0,
+    "outlier_high": 180.0,
+    "unit": "mmol/L"
+  },
+  "Potassium": {
+    "low": 3.5,
+    "high": 5.1,
+    "outlier_low": 1.5,
+    "outlier_high": 8.0,
+    "unit": "mmol/L"
+  }
+}
